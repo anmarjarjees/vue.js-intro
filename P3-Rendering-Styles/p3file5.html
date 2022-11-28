@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Vue.js Demo</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Vue.js Framework</h1>
+            <h2>Vue Demo Application</h2>
+        </header>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+            </ul>
+        </nav>
+        <!-- 
+            Using Class Vue binding
+        -->
+        <main id="app" class="main-content">
+            <h1 v-text="mainHeading"></h1>
+            <div>
+                Font Style:
+                <span @click="toggleStyle(1)" style="font-weight: bold">Bold</span> |
+                <span @click="toggleStyle(2)" style="font-style: italic;">Italic</span> |
+                <span @click="toggleStyle(3)" style="text-decoration: underline;">Underline</span>
+            </div>
+
+            <!-- 
+                We can pass an object to :class (short for v-bind:class) to dynamically toggle classes:
+                <div :class="{ active: isActive }"></div>
+                Link: https://vuejs.org/guide/essentials/class-and-style.html
+             -->
+            <div :class="[{txtWeight: isBold}, {txtStyle: isItalic}, {txtUnderline: isUnderline}]">
+                <div v-for="card in packages" class="card-full">
+                    <section class="card" v-text="card.package">
+                    </section>
+
+                    <section class="card" v-text="card.usage">
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        <!-- aside on the right side of main content -->
+        <aside class="main-sidebar">
+            <dl>
+                <dt>
+                    Approachable:
+                </dt>
+                <dd>Builds on top of standard HTML, CSS and JavaScript with intuitive API and world-class documentation.
+                </dd>
+
+                <dt>
+                    Performant:
+                </dt>
+                <dd>Truly reactive, compiler-optimized rendering system that rarely requires manual optimization.
+                </dd>
+
+                <dt>
+                    Versatile:
+                </dt>
+                <dd>A rich, incrementally adoptable ecosystem that scales between a library and a full-featured
+                    framework.
+                </dd>
+            </dl>
+        </aside>
+
+        <footer>&copy; <span id="year"></span> - Vue.js Introduction Demo</footer>
+    </div>
+
+    <!-- Calling the Vue Framework first: -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Calling our data file: -->
+    <script src="../data/data.js"></script>
+
+    <!-- Calling our JS script file/ or Internal JS code: -->
+    <script src="../js/script.js">
+    </script>
+
+    <script>
+        const javaPackagesApp = {
+            data() {
+                return {
+                    mainHeading: 'Java Packages and Definitions',
+                    packages,
+                    isFlipped: false,
+                    learnMoreUrl: 'https://docs.oracle.com/javase/tutorial/',
+                    // adding the property "userInput" with a default value:
+                    userInput: 'Default',
+                    // adding index with initial value of 0 to load the first element
+                    index: 0,
+                    // for the styles:
+                    isBold: false,
+                    isItalic: false,
+                    isUnderline: false,
+                }
+            }, // end data()
+            methods: {
+                move(change) {
+                    // make sure not to go beyond the range of our array:
+                    /*  
+                        Change the logic for stopping:
+                        > the forward moving when reach the end
+                        > the backward moving when reach the start
+ 
+                        To make it move to:
+                        > the first element when we reach the end with "Next" button
+                        > the last element when we reach the start with "Previous" button
+                    */
+                    // check if the index is exist => move, else => don't move (nothing to do)
+                    if (this.packages[this.index + change]) {
+                        this.index += change;
+                    } else
+                    // else if index is not exists
+                    {
+                        /* 
+                         if (change == 1 ) {
+                            reset the index to 0
+                         } else {
+                            reset the index to that last element index
+                         }
+                        */
+                        this.index = change == 1 ? 0 : this.packages.length - 1
+                    }
+                    // in both cases we need to flip the card:
+                    this.isFlipped = false;
+                }, // end move()
+                toggleStyle(style) {
+                    // alert(style)
+                    if (style == 1) {
+                        this.isBold = !(this.isBold);
+                    } else if (style == 2) {
+                        this.isItalic = !(this.isItalic);
+                    } else if (style == 3) {
+                        this.isUnderline = !(this.isUnderline);
+                    }
+                }
+            }, // end methods
+            // adding the computed key for the computed properties:
+            computed: {
+                // define a computed property "package"
+                package() {
+                    // don't forget to add "this":
+                    return this.packages[this.index].package;
+                },
+                // define a computed property "usage"
+                usage() {
+                    return this.packages[this.index].usage;
+                }
+            } // computed
+        } // end javaPackagesApp
+
+        const app = Vue.createApp(javaPackagesApp).mount("#app");
+    </script>
+</body>
+
+</html>

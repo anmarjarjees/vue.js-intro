@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Vue.js Demo</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Vue.js Framework</h1>
+            <h2>Vue Demo Application</h2>
+        </header>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+            </ul>
+        </nav>
+        <!-- 
+            Working on the same file "p1file4.html"
+            and modifying its contents
+            
+            Conditional Directive
+        -->
+        <main id="app" class="main-content">
+            <h1 v-text="mainHeading"></h1>
+            <!-- 
+                This line looks more complex or it has more logic!
+                > "isFlipped ? '' : packages[index].package"
+                > "isFlipped ? packages[index].usage : ''"                    
+                
+                Check if (the card is not isFlipped) {
+                    // Display the Java Package name
+                } else {
+                    // Display the Java Package usage
+                }
+
+                we can simplify it by using vue if/else directive 
+
+                so we will use Vue Conditional Directive
+                for conditionally displaying an element
+            -->
+
+            <!-- 
+                <section @:click="isFlipped = !isFlipped" class="card">
+                    <h2 v-text="isFlipped ? '' : packages[index].package"></h2>
+                    <p v-text="isFlipped ? packages[index].usage : ''"></p>
+                </section>
+            -->
+
+            <!-- 
+                Below is the new implementation for the same section above using vue if:
+            -->
+            <section @:click="isFlipped = !isFlipped" class="card">
+                <!-- 
+                    The new version after adding vue if/else directive:
+                 -->
+                <h2 v-if="!isFlipped" v-text="packages[index].package"></h2>
+                <p v-else="!isFlipped" v-text="packages[index].usage"></p>
+            </section>
+
+            <!-- 
+                Even we can make it simpler using the logic from the previous examples :-)
+                by: replacing "packages[index].package" with a computed property called "package"
+                by: replacing "packages[index].usage" with a computed property called "usage"
+             -->
+            <section @:click="isFlipped = !isFlipped" class="card">
+                <h2 v-if="!isFlipped" v-text="package"></h2>
+                <p v-else="!isFlipped" v-text="usage"></p>
+            </section>
+
+            <!-- 
+                Finally we can use v-else-if:
+                instead of => v-else="!isFlipped"
+                using => v-else-if with the property "usage" to check if this property is exists or not
+
+                like with if/else block
+                we can have many v-else-if and one v-else at the end
+
+                NOTE: 
+                v-if, v-else-if, v-else check if the element is actually exists in the DOM
+                not if the element is visible or invisible
+
+                it means with v-if/else:
+                > toggling on an element => will add it to the DOM (creating the element)
+                > toggling off an element => will remove it from the DOM (destroying the element)
+
+                so in all examples in this file, v-if/else add and remove elements
+                not show or hide them
+
+                HINT :-) Try the inspect the element in the console window
+                by keep clicking any section, you will see that vue
+                is adding h2 and removing p or vice versa for each click
+
+                In the next example we will just show/hide an element
+             -->
+            <section @:click="isFlipped = !isFlipped" class="card">
+                <h2 v-if="!isFlipped" v-text="package"></h2>
+                <p v-else-if="usage" v-text="usage"></p>
+            </section>
+
+            <div class=" buttons">
+                <button @click="move(-1)" type="button">Previous</button>
+                <button @click="move(1)" type="button">Next</button>
+            </div>
+
+            <p>
+                You can read more about
+                <a v-bind:href="packages[index].link" v-text="packages[index].package" target="_blank"></a>
+            </p>
+
+            <h3>NOTE:</h3>
+            <p v-html="packages[index].note"></p>
+            <hr>
+
+            <p>
+                To learn Java from A to Z you can check
+                <a :href="learnMoreUrl" target="_blank">"Oracle Java Tutorial"</a>
+            </p>
+        </main>
+
+        <!-- aside on the right side of main content -->
+        <aside class="main-sidebar">
+            <dl>
+                <dt>
+                    Approachable:
+                </dt>
+                <dd>Builds on top of standard HTML, CSS and JavaScript with intuitive API and world-class documentation.
+                </dd>
+
+                <dt>
+                    Performant:
+                </dt>
+                <dd>Truly reactive, compiler-optimized rendering system that rarely requires manual optimization.
+                </dd>
+
+                <dt>
+                    Versatile:
+                </dt>
+                <dd>A rich, incrementally adoptable ecosystem that scales between a library and a full-featured
+                    framework.
+                </dd>
+            </dl>
+        </aside>
+
+        <footer>&copy; <span id="year"></span> - Vue.js Introduction Demo</footer>
+    </div>
+
+    <!-- Calling the Vue Framework first: -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Calling our data file: -->
+    <script src="../data/data.js"></script>
+
+    <!-- Calling our JS script file/ or Internal JS code: -->
+    <script src="../js/script.js">
+    </script>
+
+    <script>
+        const javaPackagesApp = {
+            data() {
+                return {
+                    mainHeading: 'Java Packages and Definitions',
+                    // Getting our data from the data.js file:
+                    // adding another new property for "packages" array,
+                    // we can name it "packages" also
+                    // since property and it's value have the same name, we can put one word in ES6
+                    // packages: packages
+                    packages,
+                    /* 
+                    Adding another property to keep track if the card has isFlipped over or not
+                    */
+                    isFlipped: false,
+                    learnMoreUrl: 'https://docs.oracle.com/javase/tutorial/',
+                    // adding the property "userInput" with a default value:
+                    userInput: 'Default',
+                    // adding index with initial value of 0 to load the first element
+                    index: 0
+                }
+            }, // end data()
+            /* 
+            Adding our method(s) after data():
+            Adding a key for "methods" takes an object that contains the methods
+            A Vue method is an object associated with the Vue instance. 
+            Functions are defined inside the methods object: 
+            */
+            methods: {
+                // The original method => move()
+                /*    move() {
+                       // Just increment the index value by 1
+                       this.index++;
+                       this.isFlipped = false;
+                   } */
+                move(change) {
+                    // make sure not to go beyond the range of our array:
+                    // check if the index is exist => move, else => don't move (nothing to do)
+                    if (this.packages[this.index + change]) {
+                        this.index += change;
+                        this.isFlipped = false;
+                    }
+                }
+            }, // end methods
+            // adding the computed key for the computed properties:
+            computed: {
+                // define a computed property "package"
+                package() {
+                    // inside the same HTML element object itself
+                    // we used => "packages[index].package"
+                    // but here, don't forget to add "this":
+                    return this.packages[this.index].package;
+                },
+                // define a computed property "usage"
+                usage() {
+                    return this.packages[this.index].usage;
+                }
+            }
+
+        } // end javaPackagesApp
+
+        const app = Vue.createApp(javaPackagesApp).mount("#app");
+    </script>
+</body>
+
+</html>

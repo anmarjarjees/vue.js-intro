@@ -47,10 +47,17 @@ To review the topic in chronological order from the beginning to the end moving 
 - P2-Form-Bindings
 - P3-Rendering-Styles
 - P4-Basic-Components
-- P5-CLI-Single-File:
-  - "sfc-cli-demo-app" => This folder just contains the default "Single File Components" after running Vue/CLI
-  - "vue-cli-demo-app" => This folder is for demonstrating "Single File Components" for our "Java-Packages" after running Vue/CLI to be built using SFC
-
+- P5-CLI-SFC:
+  - "sfc-cli-demo-app": This folder contains
+    - The default "Single File Components" after running Vue/CLI
+    - Simple demonstrating for taking the default code from Vue to create our own "Single File Components"
+- P6-Vite-Intro:
+  - "vite-project": This folder contains the simple boilerplate for a vite application to examine its essential components. A Quick review based on Vite owner before starting our SFC demo in the next folder.
+- P7-Vite-SFC:
+  - "my-vue-app": This folder contains
+    - The default "Single File Components" after running Vue/CLI
+    - Simple demonstrating for taking the default code from Vue to create our own "Single File Components"
+    
 # Working with Single-File Components [SFC]
 The other way of working with Vue components is by defining them in files with the .vue extension. This is what is called ["Single-File Components"](https://vuejs.org/guide/scaling-up/sfc.html).
 
@@ -74,7 +81,7 @@ For demonstrating the essentials of Vue.js based on the many application that wa
 We can start by clicking the button on the home page "Get Started ->" to take us to the "[Get Started Page](https://cli.vuejs.org/guide/)"
 
 # SFC CLI Installations and Implementations:
-The initial demonstration for using and installing Vue/CLI tool will be demonstrated inside a sub-folder "P5-CLI-Single-File". For Getting Started, we need to install "Vue CLI". We can use "Node Package Manager" since we have node (LTS) already installed. 
+The initial demonstration for using and installing Vue/CLI tool will be demonstrated inside a sub-folder "P5-CLI-SFC". For Getting Started, we need to install "Vue CLI". We can use "Node Package Manager" since we have node (LTS) already installed. 
 
 ## Before installing:
 - Make sure you have an up-to-date version of Node.js installed which is mandatory for most of the JavaScript libraries and frameworks.
@@ -84,9 +91,9 @@ The initial demonstration for using and installing Vue/CLI tool will be demonstr
 ## Step#1: installing vue-cli
 In Express, we created a main folder to be the container for our application folder later. Then inside the main folder, we run the npm commands for creating the project/application folder.
 
-We do the same with Vue. In this repo, my main folder to run the npm command for installing all the Vue components based on the folders sequence as I mentioned before is: **"P5-CLI-Single-File"** which is the last sub-folder in this repo.
+We do the same with Vue. In this repo, my main folder to run the npm command for installing all the Vue components based on the folders sequence as I mentioned before is: **"P5-CLI-SFC"** which is the last sub-folder in this repo.
 
-Inside the folder "P5-CLI-Single-File", you can run this command to install vue/cli globally: 
+Inside the folder "P5-CLI-SFC", you can run this command to install vue/cli globally: 
 > npm install -g @vue/cli
 
 You can check the latest release info (version and date) of Vue-CLI by going to its [Official GitHub Repo](https://github.com/vuejs/vue-cli). Notice that you can easily click on the "GitHub" link from the top menu of the Vue-CLI page to access its GitHub official repo.
@@ -226,7 +233,7 @@ And finally, the optional "< style >" element:
 ## Vue Development Server
 Notice that Vue development server has a useful feature **"Automatic Reloading"**. Any change we make on the file will immediately be reflected on our running app in the browser which is similar to using "nodemon" in ExpressJS application.
 
-You can try it by opening the file "App.vue". In my case: the relative path for this file "P5-CLI-Single-File\sfc-cli-demo-app\src\App.vue". Then changing for example the value of "msg" prop from "Welcome to Your Vue.js App" to any other message and it will be changed in the browser instantly. 
+You can try it by opening the file "App.vue". In my case: the relative path for this file "P5-CLI-SFC\sfc-cli-demo-app\src\App.vue". Then changing for example the value of "msg" prop from "Welcome to Your Vue.js App" to any other message and it will be changed in the browser instantly. 
 
 # Analyzing the SFC Files Deeply:
 - "App.vue" file (inside "src" folder):
@@ -329,11 +336,124 @@ Inside the "component" folder, adding our file "PackageName.vue" using the same 
 
 Refer to the file "PackageName.vue" to see the code and read the comment
 
+# Introduction to Vite
+Vite is a build tool that aims to provide a faster and leaner development experience for modern web projects.
+We can start by the topic ["Scaffolding Your First Vite Project"](https://vitejs.dev/guide/#scaffolding-your-first-vite-project), but first, you can watch this short video about Vite ["Learn Vite with Evan You"](https://youtu.be/DkGV5F4XnfQ).
+Inside a folder "P6-Vite-Intro" based on the docs:
+> npm create vite@latest
+
+It will prompt you these questions:
+1. Project Name: vite-project (by default)
+2. Select a framework (based on the options, you can see that Vite is not only for vue framework):
+  - Using Vanilla template (Pure JavaScript)
+3. Finally Select "JavaScript"
+
+At the end, you will see this message:
+Scaffolding project in "YourPath\MainFolder\ApplicationFolder..."
+
+Done. Now run:
+
+  cd vite-project
+  npm install
+  npm run dev
+
+Before installing the "npm" dependencies, you can examine the application folder contents:
+- public (folder) => just contains vite.svg
+- .gitignore
+- counter.js
+- index.html:
+  - contains:
+    ```
+      <div id="app"></div>
+      <script type="module" src="/main.js"></script>
+    ```
+- javascript.svg
+- main.js
+- package.json
+- style.css
+
+If you open the file package.json, you will see that vite is only the dependency we need, and it's installed for the development environment, so it will not be used in production:
+- Below is the full content of the basic "package.json" before running "npm install"
+```
+{
+  "name": "vite-project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^3.2.3"
+  }
+}
+```
+
+Now run the npm to install the dependencies:
+you will notice the high speed in comparing with cli command.
+> npm install
+
+Finally, run the command:
+Also wil start with a very high speed!
+> npm run dev
+
+The output after running this command:
+ 
+  VITE v3.2.4  ready in 751 ms
+
+  ➜  Local:   http://127.0.0.1:XXXX/
+  ➜  Network: use --host to expose
+
+The default port number is 3000 but it could be changed based on your OS settings.
+Open the URL to see the Vite Welcome Page:
+![Vite Welcome Template Home Page](./repo-assets/vite-welcome-template.jpg)
+
+NOTE:
+If add or install other dependencies, we need to stop the server and re-run it again => npm run dev
+
+You can check the comments:
+- index.html
+- main.js
+- style.css
+
+
 # SFC Vite Installations and Implementations:
-Vite is a build tool that aims to provide a faster and leaner development experience for modern web projects. we can start by the topic ["Scaffolding Your First Vite Project"](https://vitejs.dev/guide/#scaffolding-your-first-vite-project).
+After trying Vue/CLI, we will quickly use Vue-Vite to install and run a Vite Demo app by following the steps below.
 
+## Step#1: Scaffolding Your First Vite Project
+Create/pick a new folder to initialize your Vue App (folder), in this repo, my folder is named "P7-Vite-SFC"
+Based on the docs, I run this all-in-one command to:
+- create/download the latest vite tool => npm create vite@latest
+- pick the application name => my-vue-app
+- installing the Vue template => --template vue
+> npm create vite@latest my-vue-app --template vue
+
+Then follow the prompts! You will have these questions:
+1- Need to install the following packages:
+  - create-vite@latest
+  - Ok to proceed? (y)
+2. √ Select a framework: » Vue
+3. √ Select a variant: » JavaScript
+
+Then it will display this message with suggested commands to run:
+Done. Now run:
+  cd my-vue-app
+  npm install
+  npm run dev
+
+Notice that "npm install" will install packages/dependencies based on the packages.json file:
+```
+  "dependencies": {
+    "vue": "^3.2.41"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.2.0",
+    "vite": "^3.2.3"
+  }
+```
 Now to continue from here, you can select any way you prefer for learning based on the very nice tutorials from Vue: ["Pick Your Learning Path"](https://vuejs.org/guide/introduction.html#pick-your-learning-path)
-
 
 # References, Resources, and Credits: 
 - [Michael Sullivan](https://github.com/regularmike): Microsoft Certified Professional and Senior Web Developer

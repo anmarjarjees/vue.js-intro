@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Vue.js Demo</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Vue.js Framework</h1>
+            <h2>Vue Demo Application</h2>
+        </header>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+            </ul>
+        </nav>
+        <!-- 
+            form field: Vue Modifiers:
+            > v-model.trim
+            > v-model.number
+            > @:click.prevent OR v-on:click.prevent
+
+            Additional Modifiers:
+            > stop: to stop propagation of an event
+            > self: to deduct whether the target is this element, or the child element
+            > once: to limit the handler to a single execution
+        -->
+        <main id="app" class="main-content">
+            <!-- Adding the literal text instead of binding: -->
+            <h1>Java Packages and Definitions</h1>
+            <!-- Adding a full official form element -->
+
+            <form method="post" action="">
+                <div>
+                    <label for="name">Package Name: </label>
+                    <!-- 
+                    Vue has many directive modifiers that provide shorthand syntax 
+                    for adding different behaviours instead of coding then using JS  
+
+                    Example Below:
+                    when entering value with spaces before and after (leading and trailing whitespace),
+                    we usually use JS String .trim() method 
+                    to remove these extra spaces after submitting the form.
+                    But we will use Vue directive modifier instead:
+
+                    Using Vue trim modifier => .trim to be added to the "v-model":
+                    instead of just =>  v-model="mainHeading"
+                    we can use =>  v-model.trim="mainHeading"
+
+                    Now typing/adding white spaces will not affect { {mainHeading.length} }
+                    so it will not change the bound value in our data object "mainHeading"
+                    -->
+                    <input type="text" id="name" name="name" v-model.trim="mainHeading">
+                    <span>({{mainHeading.length}} character)</span>
+                </div>
+
+                <div>
+                    <label for="description">Description: </label>
+                    <!-- 
+                        Q) What if we want to update a data() property 
+                        after the user has finished typing and moved the focus into another field (leaving the current field)?
+                        A) Instead of handling the input (keystroke) event, 
+                        we can tell Vue to handle the change event by adding the "lazy" modifier
+
+                        Apply the idea to the textarea field:
+                        the data() property "deckDescription" will not be changed immediately as we type
+                        till we leave the field or move the focus into another field
+                    -->
+                    <textarea id="description" name="description" v-model.lazy="deckDescription"></textarea>
+                    <span>({{200-deckDescription.length}} left)</span>
+                </div>
+
+                <div class="options">
+                    <fieldset class="select-action">
+                        <legend>packages Options</legend>
+                        <div>
+                            <input v-model="options" true-value="on" false-value="off" type="checkbox" id="reverse"
+                                value="reverse">
+                            <label for="reverse">Include reverse packages</label>
+                        </div>
+
+                        <div>
+                            <input v-model="options" type="checkbox" id="time_limit" value="time_limit">
+                            <label for="time_limit">Use time limit</label>
+                        </div>
+
+                        <div>
+                            <input v-model="options" type="checkbox" id="reminders" value="reminders">
+                            <label for="reminders">Enable reminders</label>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="select-action">
+                        <legend>Java GUI</legend>
+                        <div>
+                            <input v-model="gui" type="radio" id="sw" name="gui" value="sw" checked>
+                            <label for="sw">Swing</label>
+                        </div>
+                        <div>
+                            <input v-model="gui" type="radio" id="fx" name="gui" value="fx">
+                            <label for="fx">JavaFX</label>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="subject">
+                    <label for="subject">OOP Subjects:</label>
+                    <!-- 
+                        As we handled the form with PHP or JS,
+                        the values of the "value" attribute are treated as a string data type
+                        so we had to modify our conditions by testing "1" instead 1
+                        or convert it into a numeric value using a built-in function/method
+
+                        Vue can help us to cast these value to integers by using the number modifier
+
+                        Using Vue trim modifier => .trim to be added to the "v-model":
+                        instead of just => v-model="subjectId"
+                        we can use => v-model.number="subjectId"
+
+                        We can check the value in the Vue devtools:
+                        subjectId: 2 <=> instead of <=> subjectId: "2"
+                    -->
+                    <select v-model.number="subjectId" name="subject" id="subject">
+                        <option value="">Select</option>
+                        <option value="1">Abstraction</option>
+                        <option value="2">Polymorphism</option>
+                        <option value="3">Inheritance</option>
+                        <option value="4">Encapsulation</option>
+                        <option value="5">Interfaces</option>
+                        <option value="6">Programming</option>
+                    </select>
+                </div>
+
+                <!-- Adding testing div for displaying the values of the checkbox "reverse" -->
+                <div>
+                    Value of Vue data property "options" is: <strong>{{ options }}</strong>
+                </div>
+
+                <div class="buttons">
+                    <!-- 
+                        Vue modifiers for event handlers:
+                        > prevent modifier:
+                        also instead of using: v-on:click
+                        we can just use the shorthand @:click
+
+                        Calling a method named "submit" => part of the application object methods
+                     -->
+                    <!-- <button @:click="submit;" type="submit">Create</button> -->
+
+                    <!-- 
+                        Browser will refresh the page after submitting the form
+                        which is the default behaviour of the browser
+                        that we were able to handle using JavaScript (JS).
+                        One of the ways => return false; [Refer to my JS code examples]
+
+                        Using Vue prevent modifier => .prevent to be added to the "v-model":
+                        instead of just =>   @:click="submit;"
+                        we can use =>   @:click.prevent="submit;"
+
+                        This could be useful for an AJAX call and client site update
+                     -->
+                    <button @:click.prevent="submit;" type="submit">Create</button>
+                </div>
+
+            </form>
+        </main>
+
+        <!-- aside on the right side of main content -->
+        <aside class="main-sidebar">
+            <dl>
+                <dt>
+                    Approachable:
+                </dt>
+                <dd>Builds on top of standard HTML, CSS and JavaScript with intuitive API and world-class documentation.
+                </dd>
+
+                <dt>
+                    Performant:
+                </dt>
+                <dd>Truly reactive, compiler-optimized rendering system that rarely requires manual optimization.
+                </dd>
+
+                <dt>
+                    Versatile:
+                </dt>
+                <dd>A rich, incrementally adoptable ecosystem that scales between a library and a full-featured
+                    framework.
+                </dd>
+            </dl>
+        </aside>
+
+        <footer>&copy; <span id="year"></span> - Vue.js Introduction Demo</footer>
+    </div>
+
+    <!-- Calling the Vue Framework first: -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Calling our data file: -->
+    <script src="../data/data.js"></script>
+
+    <!-- Calling our JS script file/ or Internal JS code: -->
+    <script src="../js/script.js">
+    </script>
+
+    <script>
+        const javaPackagesApp = {
+            // data() method for returning the Vue app properties (variables to be used in HTML page)
+            data() {
+                return {
+                    mainHeading: 'Java Packages and Definitions',
+                    deckDescription: 'A package in Java is used to group related classes.',
+                    reverse: false,
+                    options: [],
+                    gui: 'Swing',
+                    subjectId: ""
+                }
+            },
+            // adding the methods property again:
+            methods: {
+                // define our "submit()" method:
+                submit() {
+                    alert("Form is being submitted");
+                }
+            }
+        } // end javaPackagesApp
+
+        const app = Vue.createApp(javaPackagesApp).mount("#app");
+    </script>
+</body>
+
+</html>

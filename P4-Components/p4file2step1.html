@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Vue.js Demo</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Vue.js Framework</h1>
+            <h2>Vue Demo Application</h2>
+        </header>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+            </ul>
+        </nav>
+        <!-- 
+            Similar to the contents of the file: "p4file1.html"
+            File Step1 => registering the first component "read-more"
+            Creating and Registering Components And Using Components Props (Properties)
+        -->
+        <main id="app" class="main-content">
+            <h1 v-text="mainHeading"></h1>
+            <section @:click="isFlipped = !isFlipped" class="card">
+                <h2 v-if="!isFlipped" v-text="package"></h2>
+                <p v-else="!isFlipped" v-text="usage"></p>
+            </section>
+
+            <div class="buttons">
+                <button @click="move(-1)" type="button">Previous</button>
+                <button @click="move(1)" type="button">Next</button>
+            </div>
+
+            <p>
+                You can read more about
+                <a v-bind:href="packages[index].link" v-text="packages[index].package" target="_blank"></a>
+            </p>
+
+            <h3>NOTE:</h3>
+            <p v-html="packages[index].note"></p>
+            <hr>
+
+            <!-- 
+                The final step:
+                passing the "url" as any dynamic property of vue (like vue directive) by using ":"
+                pointing to the data property name from the parent object "app":
+                >> the parent "app" data() has the property of "learnMoreUrl"
+                >> the child component has an element named "url" in the "props" array
+                so the attribute syntax will be => :url="learnMoreUrl"
+            -->
+            <read-more :url="learnMoreUrl">
+            </read-more>
+
+            <!-- 
+                NOTE to Recap: 
+                we don't have to pass a dynamic attribute with a data property as a value,
+                we can just write the attribute in a static way as we had done before:
+                
+                <read-more url="https://docs.oracle.com/en/">
+                </read-more>
+            -->
+        </main>
+
+        <!-- aside on the right side of main content -->
+        <aside class="main-sidebar">
+            <dl>
+                <dt>
+                    Approachable:
+                </dt>
+                <dd>Builds on top of standard HTML, CSS and JavaScript with intuitive API and world-class documentation.
+                </dd>
+
+                <dt>
+                    Performant:
+                </dt>
+                <dd>Truly reactive, compiler-optimized rendering system that rarely requires manual optimization.
+                </dd>
+
+                <dt>
+                    Versatile:
+                </dt>
+                <dd>A rich, incrementally adoptable ecosystem that scales between a library and a full-featured
+                    framework.
+                </dd>
+            </dl>
+        </aside>
+
+        <footer>&copy; <span id="year"></span> - Vue.js Introduction Demo</footer>
+    </div>
+
+    <!-- Calling the Vue Framework first: -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Calling our data file: -->
+    <script src="../data/data.js"></script>
+
+    <!-- Calling our JS script file/ or Internal JS code: -->
+    <script src="../js/script.js">
+    </script>
+
+    <script>
+        const javaPackagesApp = {
+            data() {
+                return {
+                    mainHeading: 'Java Packages and Definitions',
+                    packages,
+                    isFlipped: false,
+                    learnMoreUrl: 'https://docs.oracle.com/javase/tutorial/',
+                    // adding index with initial value of 0 to load the first element
+                    index: 0
+                }
+            }, // end data()
+            methods: {
+                move(change) {
+                    if (this.packages[this.index + change]) {
+                        this.index += change;
+                    } else
+                    // else if index is not exists
+                    {
+                        this.index = change == 1 ? 0 : this.packages.length - 1
+                    }
+                    this.isFlipped = false;
+                } // end move()
+            }, // end methods
+            // adding the computed key for the computed properties:
+            computed: {
+                // define a computed property "package"
+                package() {
+                    return this.packages[this.index].package;
+                },
+                // define a computed property "usage"
+                usage() {
+                    return this.packages[this.index].usage;
+                }
+            }
+
+        } // end javaPackagesApp
+
+        // Step#1: Create the app first
+        const app = Vue.createApp(javaPackagesApp);
+
+        // Step#2: Register the component
+        app.component(
+            'read-more',
+            {
+                /* 
+                Instead of hard coding the value of href attribute
+                we can change it back to be a dynamic attribute
+                and passing to it the value of property "learnMoreUrl"
+                >> instead of => href = "https://docs.oracle.com/javase/tutorial/"
+                >> use => :href = "learnMoreUrl"
+
+                Problem: 
+                When we pass a property from the parent app data() to the child component,
+                it works (functional) but Vue wil give us this warning:
+                [Vue warn]: Property "learnMoreUrl" was accessed during render but is not defined on instance. 
+                at <ReadMore> 
+                at <App>        
+                */
+
+                /*  template: '<p>\
+                            To learn Java from A to Z you can check\
+                            <a :href = "learnMoreUrl" target = "_blank">\
+                            "Oracle Java Tutorial"\
+                            </a>\
+                            </p >', */
+
+                /*   
+                For the same reason as the "ReadMore" component cannot reach up into the parent instance data,
+                so we need to let the parent instance passing the required data/props to the child component(s)
+            
+                Solution:
+                We can just simply add another property named "props"
+                to the components options object 
+                "props" can take several forms, here it is an array that contains the declaration of 
+                the data's property(ies) with alias variable names that needed to be used by the template:
+                */
+                template: '<p>\
+                            To learn Java from A to Z you can check\
+                            <a :href = "url">\
+                            "Oracle Java Tutorial"\
+                            </a>\
+                            </p >',
+                props: ['url']
+            }
+        );
+
+        // Step#3: Mount/call the app
+        app.mount('#app');
+    </script>
+</body>
+
+</html>

@@ -2,11 +2,7 @@
 my-notes.txt
 p4file4-step2.html
 
-# Temporarily ignored
-P2-Form-Bindings/
-P3-Rendering-Styles/
-P4-components/
-P5-CLI-Single-File/
+.vscode/
 
 # Logs
 logs

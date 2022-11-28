@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Vue.js Demo</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Vue.js Framework</h1>
+            <h2>Vue Demo Application</h2>
+        </header>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+            </ul>
+        </nav>
+        <!-- 
+            Using Dynamic style attribute in vue            
+        -->
+        <main id="app" class="main-content">
+            <h1 v-text="mainHeading"></h1>
+            <!-- 
+                Try this first:
+                After testing the font-size,
+                adding the option for increasing/decreasing the font:
+             -->
+            <div>
+                Text size:
+                <span @click="fontSize++">Increase Font Size</span> |
+                <span @click="fontSize--">Decrease Font Size</span>
+            </div>
+
+            <!-- 
+                Try this second:
+                Using another way:
+                moving these :text-align: center; cursor:pointer;
+                to an object in data
+                and using a dynamic style attribute => :style
+            -->
+            <div :style="fontSizeControlStyle">
+                Text size:
+                <span @click="fontSize++">Bigger Font Size</span> |
+                <span @click="fontSize--">Smaller Font Size</span>
+            </div>
+
+            <!-- 
+                Try this finally:
+                if we have multiple dynamic style attributes,
+                we can add them inside and array of objects:
+                
+                Notice Vue will give warnings about these two extra properties 
+                that have never being declared: anotherStyle, oneMoreStyle
+             -->
+            <div :style="[fontSizeControlStyle, anotherStyle, oneMoreStyle]">
+                Text size:
+                <span @click="fontSize++">Bigger Font Size</span> |
+                <span @click="fontSize--">Smaller Font Size</span>
+            </div>
+
+            <!-- 
+                Adding an option to dynamically
+                change the font size of the displayed packages:
+                > the font size for the package list
+                > the font size for the usage list
+
+                wrapping the entire div for v-for="card in packages"
+                with another parent div that contains the vue dynamic style directive
+                Noticed that we put this new div to be the container of the for-loop div
+                to avoid the repetition in rendering the page.
+
+                Action:
+                using "v-bind:style" directive
+                we can set the font-size or any CSS rule as a JS object with CSS property names and values
+
+                Two different ways to specify the property:
+                > 'font-size'
+                > fontSize
+                
+                Two different ways to specify the value:
+                > putting a static value => '15px'
+                  v-bind:style="{'font-size':'15px'}"
+                > creating a data property "fontSize" and invoke it here
+                  notice adding the postfix "px" to the numeric value of fontSize property
+                  v-bind:style="{'font-size':fontSize+'px'}"
+
+                NOTE: As we done previously, we can replace "v-bind:style" with ":style"
+            -->
+            <div :style="{'font-size':fontSize+'px'}">
+                <div v-for="card in packages" class="card-full">
+                    <section class="card" v-text="card.package">
+                    </section>
+
+                    <section class="card" v-text="card.usage">
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        <!-- aside on the right side of main content -->
+        <aside class="main-sidebar">
+            <dl>
+                <dt>
+                    Approachable:
+                </dt>
+                <dd>Builds on top of standard HTML, CSS and JavaScript with intuitive API and world-class documentation.
+                </dd>
+
+                <dt>
+                    Performant:
+                </dt>
+                <dd>Truly reactive, compiler-optimized rendering system that rarely requires manual optimization.
+                </dd>
+
+                <dt>
+                    Versatile:
+                </dt>
+                <dd>A rich, incrementally adoptable ecosystem that scales between a library and a full-featured
+                    framework.
+                </dd>
+            </dl>
+        </aside>
+
+        <footer>&copy; <span id="year"></span> - Vue.js Introduction Demo</footer>
+    </div>
+
+    <!-- Calling the Vue Framework first: -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Calling our data file: -->
+    <script src="../data/data.js"></script>
+
+    <!-- Calling our JS script file/ or Internal JS code: -->
+    <script src="../js/script.js">
+    </script>
+
+    <script>
+        const javaPackagesApp = {
+            data() {
+                return {
+                    mainHeading: "Java Packages and Definitions",
+                    // the packages array packages: packages, or just packages
+                    packages,
+                    // adding the value without adding the unit to be easily changed programmatically
+                    // with initial value of 15
+                    fontSize: 15,
+                    // other way demo for increase/decrease font size
+                    fontSizeControlStyle: {
+                        // Either:
+                        'text-align': 'center',
+                        // OR:
+                        textAlign: 'center',
+                        cursor: 'pointer'
+                    }
+                }
+            } // end data()
+        } // end javaPackagesApp
+
+        const app = Vue.createApp(javaPackagesApp).mount("#app");
+    </script>
+</body>
+
+</html>

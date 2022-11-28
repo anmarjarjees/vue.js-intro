@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Vue.js Demo</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Vue.js Framework</h1>
+            <h2>Vue Demo Application</h2>
+        </header>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+            </ul>
+        </nav>
+
+        <main id="app" class="main-content">
+            <h1 v-text="mainHeading"></h1>
+            <div v-for="card in packages" class="card-full">
+                <section class="card" v-text="card.package">
+                </section>
+
+                <section class="card" v-text="card.usage">
+                </section>
+            </div>
+        </main>
+
+        <!-- aside on the right side of main content -->
+        <aside class="main-sidebar">
+            <dl>
+                <dt>
+                    Approachable:
+                </dt>
+                <dd>Builds on top of standard HTML, CSS and JavaScript with intuitive API and world-class documentation.
+                </dd>
+
+                <dt>
+                    Performant:
+                </dt>
+                <dd>Truly reactive, compiler-optimized rendering system that rarely requires manual optimization.
+                </dd>
+
+                <dt>
+                    Versatile:
+                </dt>
+                <dd>A rich, incrementally adoptable ecosystem that scales between a library and a full-featured
+                    framework.
+                </dd>
+            </dl>
+        </aside>
+
+        <footer>&copy; <span id="year"></span> - Vue.js Introduction Demo</footer>
+    </div>
+
+    <!-- Calling the Vue Framework first: -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Calling our data file: -->
+    <script src="../data/data.js"></script>
+
+    <!-- Calling our JS script file/ or Internal JS code: -->
+    <script src="../js/script.js">
+    </script>
+
+    <script>
+        const javaPackagesApp = {
+            data() {
+                return {
+                    mainHeading: 'Java Packages and Definitions',
+                    packages,
+                    isFlipped: false,
+                    learnMoreUrl: 'https://docs.oracle.com/javase/tutorial/',
+                    // adding the property "userInput" with a default value:
+                    userInput: 'Default',
+                    // adding index with initial value of 0 to load the first element
+                    index: 0
+                }
+            }, // end data()
+            methods: {
+                move(change) {
+                    // make sure not to go beyond the range of our array:
+                    // check if the index is exist => move, else => don't move (nothing to do)
+                    if (this.packages[this.index + change]) {
+                        this.index += change;
+                        this.isFlipped = false;
+                    }
+                }
+            }, // end methods
+            // adding the computed key for the computed properties:
+            computed: {
+                // define a computed property "package"
+                package() {
+                    // don't forget to add "this":
+                    return this.packages[this.index].package;
+                },
+                // define a computed property "usage"
+                usage() {
+                    return this.packages[this.index].usage;
+                }
+            } // computed
+        } // end javaPackagesApp
+
+        const app = Vue.createApp(javaPackagesApp).mount("#app");
+    </script>
+</body>
+
+</html>
