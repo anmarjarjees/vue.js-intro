@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Vue.js Demo</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Vue.js Framework</h1>
+            <h2>Vue Demo Application</h2>
+        </header>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+            </ul>
+        </nav>
+        <!-- 
+            This main HTML element will be connected to our Vue object
+            Link: https://vuejs.org/guide/essentials/application.html#mounting-the-app
+        -->
+        <main id="app" class="main-content">
+            <!-- 
+                To learn more about "Template Syntax"
+                Link: https://vuejs.org/guide/essentials/template-syntax.html
+             -->
+            <h1>{{ mainHeading }}</h1>
+            <section class="card">
+                <h2>Item</h2>
+                <p>Description</p>
+            </section>
+        </main>
+
+        <!-- aside on the right side of main content -->
+        <aside class="main-sidebar">
+            <dl>
+                <dt>
+                    Approachable:
+                </dt>
+                <dd>Builds on top of standard HTML, CSS and JavaScript with intuitive API and world-class documentation.
+                </dd>
+
+                <dt>
+                    Performant:
+                </dt>
+                <dd>Truly reactive, compiler-optimized rendering system that rarely requires manual optimization.
+                </dd>
+
+                <dt>
+                    Versatile:
+                </dt>
+                <dd>A rich, incrementally adoptable ecosystem that scales between a library and a full-featured
+                    framework.
+                </dd>
+            </dl>
+        </aside>
+
+        <footer>&copy; <span id="year"></span> - Vue.js Introduction Demo</footer>
+    </div>
+
+    <!-- Calling the Vue Framework first: -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Calling our data file: -->
+    <script src="../data/data.js"></script>
+
+    <!-- Calling our JS script file/ or Internal JS code: -->
+    <script src="../js/script.js">
+    </script>
+
+    <script>
+        // Creating our constant for the application;
+        /*
+        creating an object to describe our application with options
+        these options will be passed to a method that will create the app
+        
+        With Options API, we define a component's logic using an object of options such as:
+        - data
+        - methods <=> as we will see in the next examples
+        
+        Properties defined by options are exposed on this inside functions, 
+        which points to the component instance:
+        
+        Link: https://vuejs.org/guide/introduction.html#api-styles
+        */
+        const javaPackagesApp = {
+            // option1 => the data for our application:
+            // data() function => return an object
+            // The data option for a component is a function.
+            // Vue calls this function as part of creating a new component instance.
+            data() {
+                return {
+                    // contains the property "mainHeading":
+                    mainHeading: "Java Packages and Definitions",
+                }
+            } // end data()
+        } // end javaPackagesApp
+
+        /*
+        Using the "Vue" with its method .createApp()
+        passing our object "app"
+        and chain with mount()
+        mount() takes a selector with the DOM Element
+        that Vue will manage
+    
+        So instead of using JS code to manipulate the HTML element,
+        we can simply use Vue.JS template like Angular, or mustache syntax => {{}}
+        to place our JS varaibles/code
+        Link: https://vuejs.org/guide/essentials/application.html#mounting-the-app
+        */
+        Vue.createApp(javaPackagesApp).mount("#app");
+    </script>
+
+    <body>
+
+
+</html>

@@ -1,0 +1,487 @@
+/*	
+Global Rules: the general rules (styles) for any device or any screen size
+*/
+* {
+    margin: 0;
+    padding: 0;
+    /* 
+    CSS3: to have the padding and the border width 
+    included with the element width 
+    */
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Segoe, "Segoe UI", "DejaVu Sans", "Trebuchet MS", Verdana, "sans-serif";
+}
+
+div.wrapper {
+    /* 
+    To recap:
+    using "max-width" with px in RWD 
+    we should NOT use width:1200px
+    */
+    max-width: 1400px;
+    margin: auto;
+}
+
+/* adding some background and font colors */
+header,
+footer {
+    /* For testing, comment this background color for the header and footer: */
+    background-color: darkslategrey;
+    color: aliceblue;
+    text-align: center;
+    padding: 5px 0;
+}
+
+/* give another background color for the main element (the main page content) */
+main.main-content {
+    background-color: rgb(230, 248, 247);
+}
+
+/* The section element */
+.card {
+    background: #ffffff;
+    color: #495057;
+    margin: 20px 0;
+    padding: 30px 30px;
+    /* 
+    box-shadow styling 
+    link: https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow#setting_three_shadows
+    inset | offset-x | offset-y | color 
+    */
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(255, 255, 255),
+        0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    /* margin: 0 auto; */
+    cursor: pointer;
+}
+
+.card h2 {
+    font-size: 2.5em;
+    text-align: center;
+    margin: 40px;
+}
+
+.card p {
+    font-size: 2em;
+    text-align: center;
+    margin: 40px;
+}
+
+/* 
+Link: https://css-tricks.com/almanac/selectors/f/first-child/
+Link: https://css-tricks.com/almanac/selectors/f/first-of-type/
+*/
+main.main-content>p:first-of-type {
+    font-size: 1.5em;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    margin: 30px;
+}
+
+/* 
+div.buttons: the container element of these children:
+- input of type submit 
+- input of type reset 
+
+their container is a div with class named buttons 
+*/
+div.buttons {
+    background-color: rgb(120, 166, 155);
+    border-radius: 10px;
+    /*
+      Only use the two CSS3 properties to layout the input fields inside div.buttons:
+      1- display: flex; (CSS3) [inline-block (CSS3) and inline (CSS2) and block (CSS2)]
+      2- justify-content:
+      > flex-start, flex-end
+      > center, space-around
+      > space-evenly
+      > space-between
+  
+      so we need to apply the these two new CSS3 rules to the container element
+      (not the element(s) that we need to centre but its direct container)
+  
+      read more: https://www.w3schools.com/cssref/css3_pr_justify-content.asp
+      */
+
+    /* Step 1: use CSS3 property new value for display called "flex" */
+    display: flex;
+    /* Step 2: use CSS# property "justify-content" => you can comment below to see the effect */
+    justify-content: center;
+    justify-content: space-around;
+    justify-content: space-between;
+    justify-content: space-evenly;
+    /* Below for old versions of Chrome, Safari, and FireFox */
+    /* 
+    -webkit-justify-content: space-evenly;
+    -moz-justify-content: space-evenly; 
+    */
+}
+
+div.buttons button {
+    text-align: center;
+    font-size: 20px;
+    width: 5.5em;
+    padding: 5px 10px;
+}
+
+/*
+  Adding a nice behaviour to the buttons 
+  Change their colors and the mouse pointer on hovering over them
+  we used a:hover, but we can use the pseudo class :hover with any element also: 
+*/
+div.buttons button:hover {
+    background-color: #2f4f4f;
+    color: #f0f8ff;
+    cursor: pointer;
+}
+
+/* Styling the form */
+form {
+    border: 1px inset rgb(181, 182, 182);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0 auto;
+    background-color: rgb(223, 243, 236);
+}
+
+form div {
+    margin: 10px 0;
+}
+
+form label {
+    /* display: inline-block;
+    vertical-align: middle; */
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+form input[type="checkbox"],
+form input[type="radio"] {
+    margin-right: 10px;
+}
+
+/* 
+:not()
+https://developer.mozilla.org/en-US/docs/Web/CSS/:not
+Examples:
+p:not(.irrelevant)
+input:not([type="checkbox"])
+*/
+form input:not([type="checkbox"], [type="radio"]),
+form textarea {
+    width: 100%;
+}
+
+
+form span {
+    font-size: .7em;
+    font-style: italic;
+    font-weight: bold;
+}
+
+
+fieldset {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+fieldset legend {
+    font-weight: bold;
+    padding: 0 5px;
+}
+
+/* give another background color for the aside */
+aside.main-sidebar {
+    background-color: rgb(203, 245, 231);
+}
+
+/* 
+adding some padding for all the main containers:
+<nav class="main-nav">
+<main class="main-content">
+<aside class="main-sidebar">
+ */
+nav.main-nav,
+main.main-content,
+aside.main-sidebar {
+    padding: 15px;
+}
+
+/* Styling the main navigation */
+nav.main-nav ul {
+    /* no bullets */
+    list-style-type: none;
+    /* all in uppercase */
+    text-transform: uppercase;
+}
+
+/* I would like to add a border below every list item inside the ul element inside the main navigation: */
+nav.main-nav ul li {
+    border-bottom: 1px solid darkgreen;
+}
+
+
+/* 
+To recap:
+Styling the <a> anchor elements of the main nav: link, visited, hover, and active => LoVe HAte 
+But instead of creating 4 different styles for each status:
+- link
+- visited
+- hover
+- active
+
+We can also combine every logical pair together:
+- link and visited
+- hover and active
+
+For more details, you can refer to my in-class notes about HTML and CSS examples
+*/
+
+/* 1: Combine: Link and Visited */
+nav.main-nav a:link,
+nav.main-nav a:visited {
+    text-decoration: none;
+    display: block;
+}
+
+/* 2: Combine: hover and active */
+nav.main-nav a:hover,
+nav.main-nav a:active {
+    background-color: darkgreen;
+    color: lightgreen;
+}
+
+
+/* Styling the definition list */
+dt {
+    font-weight: bold;
+    font-size: medium;
+}
+
+dd {
+    margin-bottom: 10px;
+}
+
+/* make all the images responsive */
+img {
+    /*
+    To make any image responsive:
+    - width: 100% => will keep enlarge the image based on its container element 
+    - max-width: 100%; => will keep enlarge the image but it will NOT ge beyond its actual size
+    */
+    max-width: 100%;
+}
+
+/* 
+I want some of the images (not all) to be centred 
+we can use class => so the image with class named "img-centre"
+*/
+.img-centre {
+    /* img inline element  */
+    display: block;
+    margin: auto;
+}
+
+figure {
+    background-color: #e9e9d0;
+    border: 2px solid #36270F;
+    margin: 10px auto;
+    /* 5px for all sides */
+    padding: 5px;
+    /* 5px for all sides */
+}
+
+figcaption {
+    /* To centre the figcaption text */
+    text-align: center;
+    /* To make it bold */
+    font-weight: bold;
+    /* To make 90% of the original font size which is 100% */
+    font-size: 90%;
+    color: rgb(23, 49, 1);
+}
+
+/* 
+Putting this rule in the global section
+footer style for preventing the floating issue 
+*/
+footer {
+    clear: both;
+}
+
+/* 
+This rule to be used in Part3 - Second file:
+********************************************
+using the [attribute-name]
+Link: https://www.w3schools.com/css/css_attribute_selectors.asp
+*/
+[v-cloak] {
+    display: none;
+}
+
+/* 
+This rule to be used in Part3 - Third file:
+*******************************************
+This div.card-full contains two children of html <section> elements
+*/
+.card-full {
+    /* 
+    Using new CSS3 properties => [display: flex] and [justify-content: x ] 
+
+    display: flex rule => helps us to evenly distribute the children items across their parent container 
+
+    the rule display: flex works with another required CSS3 property named "justify-content"
+    */
+    display: flex;
+    justify-content: space-around;
+    /* 
+    To summarize: To layout any children elements, we can use these two CSS3 properties to their parent elements:
+
+    1- the property "display" with the value of "flex"
+    2- the property "justify-content" with either one from the following values:
+        > flex-start (default): items are packed toward the start line
+        > flex-end: items are packed toward to end line
+        > center: items are centered along the line
+        > space-around: items are evenly distributed in the line with equal space around them.
+        Note that visually the spaces aren't equal, since all the items have equal space on both sides. 
+        > space-evenly: items are evenly distributed across their container
+        > space-between: items are evenly distributed in the line; first item is on the start line, last item on the end line
+
+        - display: flex (CSS3 value) <==> this is the one that we need to use 
+
+        To review the rest (we had already tried all the values below):
+        - display: inline-block (CSS3 value) 
+        - display: inline (CSS2 value) 
+        - display: block (CSS2 value)
+
+        read more: https://www.w3schools.com/cssref/css3_pr_justify-content.asp
+    */
+}
+
+.card-full section {
+    width: 48%;
+}
+
+
+/* for span content to act as a hyperlink or clickable area (part3 files: 4 and 5) */
+main div span {
+    cursor: pointer;
+}
+
+/* 
+These rules to be used in Part3 - Fifth file:
+*******************************************
+using the CSS Class directive
+*/
+.txtWeight {
+    font-weight: bold;
+}
+
+.txtStyle {
+    font-style: italic;
+}
+
+.txtUnderline {
+    text-decoration: underline;
+}
+
+
+/* *************  End of Global Styles *************** */
+
+/* Second Step: Starting the media queries: */
+/* 1. For mobile (Small Screen) First */
+@media only screen and (max-width: 600px) {
+
+    /* for testing */
+    header {
+        background-color: darkkhaki;
+        color: rgb(87, 83, 28);
+    }
+
+    /* no layout to change in small screens, it looks fine! */
+}
+
+/* 2. For Tablet (Medium Screen) */
+@media only screen and (min-width:601px) and (max-width:900px) {
+
+    /* for testing */
+    header {
+        background-color: darkorange;
+    }
+
+    /*
+    we want to display the main element (the main contents)
+    and the aside element (sidebar) beside each other 
+    which means layout both the main element and the aside element horizontally
+    we want/like to have the aside bar besides the main elements
+    the main element  + the aside element in one line:
+
+    if the total width is 100%
+    we can divide the 100% by the main and aside elements
+    let's set 70% for the main and 30% for the aside
+    */
+    main.main-content {
+        width: 70%;
+        float: left;
+    }
+
+    aside.main-sidebar {
+        width: 30%;
+        float: left;
+        /* Or using float: right; also works here */
+    }
+}
+
+/* 3. For Desktop (Normal Screen) */
+@media only screen and (min-width: 901px) {
+    /*  
+    Notice here we haven't set any background color for the <header> element
+    as we did in the other media queries for small and large screens
+
+    So the browser will simply use the global CSS rules that we set above the media section,
+    we had already set the background color for the <header> element to be "darkslategrey"
+    */
+
+    /* We want all the three elements:
+    - the nav
+    - the main
+    - the aside
+    to be rendered/displayed/layout in one line (horizontally)
+    */
+    nav.main-nav {
+        width: 20%;
+        float: left;
+    }
+
+    main.main-content {
+        width: 60%;
+        float: left;
+    }
+
+    aside.main-sidebar {
+        width: 20%;
+        float: left;
+        /* Or using float: right; also works here */
+    }
+
+}
+
+/* For printing (CSS3): */
+@media print {
+
+    /* 
+    To save the ink, we can set the background for the main element be white:
+    */
+    header,
+    main.main-content,
+    aside.main-sidebar,
+    footer {
+        background: #fff;
+        color: #000;
+        border: 1px solid #000;
+    }
+}

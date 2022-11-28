@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Vue.js Demo</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Vue.js Framework</h1>
+            <h2>Vue Demo Application</h2>
+        </header>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+            </ul>
+        </nav>
+
+        <main id="app" class="main-content">
+            <h1 v-text="mainHeading"></h1>
+
+
+            <section class="card">
+                <!-- 
+                    after adding => v-model="userInput" in a new element input field
+                    comment/ignore the old ternary condition
+                 -->
+                <!-- 
+                <h2 v-text="isFlipped ? '' : packages[0].package"></h2>
+                <p v-text="isFlipped ? packages[0].usage : ''"></p> 
+                -->
+
+                <!-- 
+                    Adding the new ternary condition based on v-model="userInput" in the input field
+                    Try it in the browser by adding 'flip'
+                 -->
+                <h2 v-text="userInput=='flip' ? '' : packages[0].package"></h2>
+                <p v-text="userInput=='flip' ? packages[0].usage : ''"></p>
+            </section>
+
+            <p>
+                You can read more about
+                <a v-bind:href="packages[0].link" v-text="packages[0].package" target="_blank"></a>
+            </p>
+            <h3>NOTE:</h3>
+            <p v-html="packages[0].note"></p>
+            <hr>
+
+            <p>
+                To learn Java from A to Z you can check
+                <!-- 
+                        NOTE: 
+                        With Vue instead of typing v-bind:
+                        We can omit the prefix by v-bind by just using the shorthand syntax => :
+                        <a v-bind:href="learnMoreUrl">"Oracle Java Tutorial"</a>
+                     -->
+                <a :href="learnMoreUrl" target="_blank">"Oracle Java Tutorial"</a>
+            </p>
+
+            <div class="input-field">
+                <!-- 
+                    To practice, adding input field:
+                    instead of using v-bind:value => we can simply use :value
+
+                    adding the property "userInput"
+
+                    NOTE: Try it in the browser:
+                    in console window => app.userInput= "testing input field"
+                    in input field => "another testing input"
+                    will not change the property "userInput" => it's one way direction
+                    from the vue to the dom!                    
+                 -->
+                <!-- Input your text: <input type="text" :value="userInput"> -->
+
+                <!-- 
+                        To solve this issue, and make it two ways binding = use v-model directive
+                -->
+                Input your text: <input type="text" v-model="userInput">
+            </div>
+
+        </main>
+
+        <!-- aside on the right side of main content -->
+        <aside class="main-sidebar">
+            <dl>
+                <dt>
+                    Approachable:
+                </dt>
+                <dd>Builds on top of standard HTML, CSS and JavaScript with intuitive API and world-class documentation.
+                </dd>
+
+                <dt>
+                    Performant:
+                </dt>
+                <dd>Truly reactive, compiler-optimized rendering system that rarely requires manual optimization.
+                </dd>
+
+                <dt>
+                    Versatile:
+                </dt>
+                <dd>A rich, incrementally adoptable ecosystem that scales between a library and a full-featured
+                    framework.
+                </dd>
+            </dl>
+        </aside>
+
+        <footer>&copy; <span id="year"></span> - Vue.js Introduction Demo</footer>
+    </div>
+
+    <!-- Calling the Vue Framework first: -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Calling our data file: -->
+    <script src="../data/data.js"></script>
+
+    <!-- Calling our JS script file/ or Internal JS code: -->
+    <script src="../js/script.js">
+    </script>
+
+    <script>
+        const javaPackagesApp = {
+            data() {
+                return {
+                    mainHeading: 'Java Packages and Definitions',
+                    // Getting our data from the data.js file:
+                    // adding another new property for "packages" array,
+                    // we can name it "packages" also
+                    // since property and it's value have the same name, we can put one word in ES6
+                    // packages: packages
+                    packages,
+                    /*
+                    Adding another property to keep track if the card has isFlipped over or not
+                    */
+                    isFlipped: false,
+                    learnMoreUrl: 'https://docs.oracle.com/javase/tutorial/',
+                    // adding the property "userInput" with a default value:
+                    userInput: 'Default'
+                }
+            } // end data()
+        } // end javaPackagesApp
+
+        const app = Vue.createApp(javaPackagesApp).mount("#app");
+    </script>
+</body>
+
+</html>

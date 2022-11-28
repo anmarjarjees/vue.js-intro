@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Vue.js Demo</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Vue.js Framework</h1>
+            <h2>Vue Demo Application</h2>
+        </header>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+            </ul>
+        </nav>
+
+        <main id="app" class="main-content">
+            <!-- This will make the template flickering -->
+            <!-- <h2>{{ mainHeading }}</h2> -->
+
+            <!-- 
+                Instead using "v-text" vue special attribute => Vue Directive 
+             -->
+            <h1 v-text="mainHeading"></h1>
+            <section class="card">
+                <!--  
+                <h2 v-text="packages[0].package"></h2>
+                <p v-text="packages[0].usage"></p>
+                -->
+
+                <!-- 
+                    we can add JS expression to the value of v-text and v-html
+                    Adding Ternary operator 
+
+                    if (isFlipped) {
+                        display => nothing
+                    } else {
+                        display => packages[0].package
+                    }
+
+                    IMPORTANT NOTE: 
+                    Test the code using the console window:
+                    > app.isFlipped
+                    > app.isFlipped = true
+
+                    also test the code using Vue tab by modifying the isFlipped prop
+                -->
+                <h2 v-text="isFlipped ? '' : packages[0].package"></h2>
+                <p class="lg-txt" v-text="isFlipped ? packages[0].usage : ''"></p>
+                <!-- 
+                Mustaches cannot be used inside HTML attributes. Instead, use a v-bind directive:  
+                Link: https://vuejs.org/guide/essentials/template-syntax.html#attribute-bindings
+                -->
+            </section>
+
+            <p>
+                You can read more about
+                <a v-bind:href="packages[0].link" v-text="packages[0].package" target="_blank"></a>
+            </p>
+            <hr>
+
+            <!-- 
+                    the "note" attribute has HTML tags, these tags will be escaped with v-text
+                    using v-html directive instead:
+                 -->
+            <h3>NOTE:</h3>
+            <p v-html="packages[0].note"></p>
+        </main>
+
+        <!-- aside on the right side of main content -->
+        <aside class="main-sidebar">
+            <dl>
+                <dt>
+                    Approachable:
+                </dt>
+                <dd>Builds on top of standard HTML, CSS and JavaScript with intuitive API and world-class documentation.
+                </dd>
+
+                <dt>
+                    Performant:
+                </dt>
+                <dd>Truly reactive, compiler-optimized rendering system that rarely requires manual optimization.
+                </dd>
+
+                <dt>
+                    Versatile:
+                </dt>
+                <dd>A rich, incrementally adoptable ecosystem that scales between a library and a full-featured
+                    framework.
+                </dd>
+            </dl>
+        </aside>
+
+        <footer>&copy; <span id="year"></span> - Vue.js Introduction Demo</footer>
+    </div>
+    <!-- Calling the Vue Framework first: -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- Calling our data file: -->
+    <script src="../data/data.js"></script>
+
+    <!-- Calling our JS script file/ or Internal JS code: -->
+    <script src="../js/script.js">
+    </script>
+
+    <script>
+        const javaPackagesApp = {
+            data() {
+                return {
+                    mainHeading: "Java Packages and Definitions",
+                    // Getting our data from the data.js file:
+                    // adding another new property for "packages" array,
+                    // we can name it "packages" also
+                    // since property and it's value have the same name, we can put one word in ES6
+                    // packages: packages
+                    // Link: https://github.com/airbnb/javascript#es6-object-concise
+                    packages,
+                    /*
+                    Adding another property to keep track if the card has flipped over or not
+                    */
+                    isFlipped: false
+                }
+            } // end data()
+        } // end javaPackagesApp
+
+        // Practice the reactive behaviour of Vue:
+        // Vue.createApp(javaPackagesApp).mount("#app");
+        // saving a reference to our app
+        const app = Vue.createApp(javaPackagesApp).mount("#app");
+    </script>
+</body>
+
+</html>
