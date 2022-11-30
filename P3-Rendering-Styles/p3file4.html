@@ -41,7 +41,10 @@
             <!-- 
                 Try this second:
                 Using another way:
-                moving these :text-align: center; cursor:pointer;
+                moving these two CSS rules:
+                - text-align: center; 
+                - cursor: pointer;
+
                 to an object in data
                 and using a dynamic style attribute => :style
             -->
@@ -148,6 +151,7 @@
                     mainHeading: "Java Packages and Definitions",
                     // the packages array packages: packages, or just packages
                     packages,
+                    // The CSS rule: "font-size", but in JS: "fontSize"
                     // adding the value without adding the unit to be easily changed programmatically
                     // with initial value of 15
                     fontSize: 15,
@@ -158,6 +162,9 @@
                         // OR:
                         textAlign: 'center',
                         cursor: 'pointer'
+                    },
+                    anotherStyle: {
+                        // any CSS rules
                     }
                 }
             } // end data()

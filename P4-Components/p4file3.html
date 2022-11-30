@@ -30,14 +30,18 @@
             Fixing/Solving the problem we had in the previous file:
             vue.global.js:1627 [Vue warn]: Attempting to mutate prop "isFlipped". Props are readonly.
 
-            We have [TWO SOLUTIONS] to fix this issue as described in this file
+            We have [TWO SOLUTIONS] to fix this issue as described in this file:
+            Solution#1: is not recommended (legacy)
+            Solution#2: the one to use with $emit()
         -->
         <main id="app" class="main-content">
             <h1 v-text="mainHeading"></h1>
             <!-- 
             Final Step: After adding the event in the child component ($emit)
             we have to invoke it inside the actual template: @flip
-            and assign to it the flipping logic as we had it before: isFlipped = !isFlipped
+            and assign to it the flipping logic 
+            as we had it before: isFlipped = !isFlipped
+            
             keep the dynamic attribute "is-flipped"
             just add => @flip="isFlipped=!isFlipped"
             -->
@@ -159,13 +163,13 @@
             'flash-card',
             // the options object:
             {
-                // Solution#2: (The one to use)
+                // Solution#2: (The one to use - ignore the first solution)
                 /* 
                 raising or emitting and event on click for alerting the parent component
                 that the user has clicked on the card:
                 we just call $emit() method and passing an event name (any meaningful name)
-                >> instead of => @:click="isFlipped = !isFlipped"
-                >> use => @:click="$emit(\'flip\')"
+                >> Old Code: instead of => @:click="isFlipped = !isFlipped"
+                >> New Code: use => @:click="$emit(\'flip\')"
                 Notice we had to escape the "'" around the event name 'flip'
 
                 This will let us handle an event named 'flip' in the root instance

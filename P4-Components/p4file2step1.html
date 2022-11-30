@@ -107,6 +107,7 @@
     </script>
 
     <script>
+        // the root object:
         const javaPackagesApp = {
             data() {
                 return {
@@ -148,6 +149,7 @@
         const app = Vue.createApp(javaPackagesApp);
 
         // Step#2: Register the component
+        // the child component
         app.component(
             'read-more',
             {
@@ -160,7 +162,7 @@
 
                 Problem: 
                 When we pass a property from the parent app data() to the child component,
-                it works (functional) but Vue wil give us this warning:
+                it works (functional) but Vue will give us this warning:
                 [Vue warn]: Property "learnMoreUrl" was accessed during render but is not defined on instance. 
                 at <ReadMore> 
                 at <App>        

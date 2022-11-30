@@ -375,7 +375,8 @@ main div span {
 /* 
 These rules to be used in Part3 - Fifth file:
 *******************************************
-using the CSS Class directive
+Creating 3 custom classes 
+to be used with the Vue CSS Class directive
 */
 .txtWeight {
     font-weight: bold;

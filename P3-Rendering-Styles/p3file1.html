@@ -211,10 +211,11 @@
                 // define a computed property "package"
                 package() {
                     // inside the same HTML element object itself
-                    // we used => "packages[index].package"
+                    // Inside HTML element, we used => "packages[index].package"
                     // but here, don't forget to add "this":
                     return this.packages[this.index].package;
                 },
+
                 // define a computed property "usage"
                 usage() {
                     return this.packages[this.index].usage;

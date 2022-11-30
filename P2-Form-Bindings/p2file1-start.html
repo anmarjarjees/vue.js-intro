@@ -23,43 +23,30 @@
             </ul>
         </nav>
         <!-- 
-            Working an initial simple file from Part#1
-            and modifying its contents
-            
-            using v-for
+            form field binding
         -->
         <main id="app" class="main-content">
-            <h1 v-text="mainHeading"></h1>
-            <!-- 
-                Showing the package name "package"
-                and it's definition "usage" side by side 
+            <!-- Adding the literal text instead of binding: -->
+            <h1>Java Packages and Definitions</h1>
+            <!-- Adding a full official form element -->
 
-                Adding two sections with class "card"
-                > for package property
-                > for usage property
+            <form method="post" action="">
+                <div>
+                    <label for="name">Package Name: </label>                   
+                    <input type="text" id="name" name="name">
+                    <span>(character)</span>
+                </div>
 
-                the two section is wrapped with a div.card-full
+                <div>
+                    <label for="description">Description: </label>                    
+                    <textarea id="description" name="description"></textarea>                 
+                    <span>(left)</span>
+                </div>
 
-                > iterating through the "packages" array to view the package/usage property
-                for each element:
-
-                using the logic of "foreach" loop => x in arrayName
-            -->
-            <div v-for="element in packages" class="card-full">
-                <!-- element will represent each object in the array -->
-                <!-- 
-                    we can reference the "card" variable anywhere 
-                    inside this div that has the v-for directive
-
-                    we can use:  {{element.package}}
-                    or using: v-text="element.package"
-                -->
-                <section class="card" v-text="card.package">
-                </section>
-
-                <section class="card" v-text="card.usage">
-                </section>
-            </div>
+                <div class="buttons">
+                    <button type="submit">Create</button>
+                </div>
+            </form>
         </main>
 
         <!-- aside on the right side of main content -->
@@ -101,13 +88,12 @@
 
     <script>
         const javaPackagesApp = {
+            // data() method for returning the Vue app properties (variables to be used in HTML page)
             data() {
                 return {
-                    mainHeading: "Java Packages and Definitions",
-                    // the packages array packages: packages, or just packages
-                    packages,
+                    mainHeading: 'Java Packages and Definitions',                   
                 }
-            } // end data()
+            }
         } // end javaPackagesApp
 
         const app = Vue.createApp(javaPackagesApp).mount("#app");

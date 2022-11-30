@@ -41,6 +41,9 @@ To decide which style/way to use, you can check this article about [which one to
 
 Vue can be used within HTML elements when it's embedded to our normal HTML files as HTML attributes using Vue directives or Vue Templates by just calling "CDN" library or by using [SFC (Single-File Components)](https://vuejs.org/guide/scaling-up/sfc.html)
 
+# Vue.js devtools
+You install the Vue.js devtools extension for any browser. I am using Chrome, the link for Vue.js [Chrome web store](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=en).
+
 # Reading Path:
 To review the topic in chronological order from the beginning to the end moving from the basic to more advanced topic follow this folder sequence, inside each folder you will see the file listed with numbers: file1, file2, ... and you can follow them in the same sequence:
 - P1-Content-Behaviour

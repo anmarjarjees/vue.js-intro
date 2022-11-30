@@ -38,6 +38,14 @@
                 We can pass an object to :class (short for v-bind:class) to dynamically toggle classes:
                 <div :class="{ active: isActive }"></div>
                 Link: https://vuejs.org/guide/essentials/class-and-style.html
+
+                Calling out 3 custom css classes that we defined in the css file:
+                - txtWeight => either true of false
+                - txtStyle => either true of false
+                - txtUnderline => either true of false
+                
+                we are binding 3 styles in on :class using array
+                Link: https://vuejs.org/guide/essentials/class-and-style.html#binding-to-arrays-1
              -->
             <div :class="[{txtWeight: isBold}, {txtStyle: isItalic}, {txtUnderline: isUnderline}]">
                 <div v-for="card in packages" class="card-full">
@@ -99,7 +107,7 @@
                     userInput: 'Default',
                     // adding index with initial value of 0 to load the first element
                     index: 0,
-                    // for the styles:
+                    // for the styles boolean values:
                     isBold: false,
                     isItalic: false,
                     isUnderline: false,

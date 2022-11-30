@@ -81,7 +81,7 @@
         creating an object to describe our application with options
         these options will be passed to a method that will create the app
         
-        With Options API, we define a component's logic using an object of options such as:
+        With "Options API", we define a component's logic using an object of options such as:
         - data
         - methods <=> as we will see in the next examples
         
@@ -103,7 +103,7 @@
             } // end data()
         } // end javaPackagesApp
 
-        /*
+        /*        
         Using the "Vue" with its method .createApp()
         passing our object "app"
         and chain with mount()
@@ -112,9 +112,10 @@
     
         So instead of using JS code to manipulate the HTML element,
         we can simply use Vue.JS template like Angular, or mustache syntax => {{}}
-        to place our JS varaibles/code
+        to place our JS variables/code
         Link: https://vuejs.org/guide/essentials/application.html#mounting-the-app
         */
+        //Every Vue application starts by creating a new application instance with the createApp function:
         Vue.createApp(javaPackagesApp).mount("#app");
     </script>
 
